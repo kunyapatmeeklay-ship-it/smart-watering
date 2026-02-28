@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Watering System</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #e8f5e9;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        .value {
+            font-size: 40px;
+            color: green;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .on { background-color: green; color: white; }
+        .off { background-color: red; color: white; }
+    </style>
+</head>
 
+<body>
+
+<h1>🌱 ระบบรดน้ำต้นไม้อัตโนมัติ</h1>
+
+<div class="card">
+    <h2>ค่าความชื้นดิน</h2>
+    <div class="value" id="moisture">50%</div>
+</div>
+
+<div class="card">
+    <h2>สถานะปั๊ม</h2>
+    <div class="value" id="pumpStatus">ปิด</div>
+    <button class="on" onclick="manualOn()">เปิดปั๊ม</button>
+    <button class="off" onclick="manualOff()">ปิดปั๊ม</button>
+</div>
+
+<script>
+    let moisture = 50;
+    let pumpOn = false;
+
+    function updateSystem() {
+        // จำลองค่าความชื้นสุ่ม
+        moisture = Math.floor(Math.random() * 100);
+        document.getElementById("moisture").innerText = moisture + "%";
+
+        // ระบบอัตโนมัติ
+        if (moisture < 40) {
+            pumpOn = true;
+        } else {
+            pumpOn = false;
+        }
+
+        updatePumpStatus();
+    }
+
+    function updatePumpStatus() {
+        document.getElementById("pumpStatus").innerText = pumpOn ? "เปิด" : "ปิด";
+    }
+
+    function manualOn() {
+        pumpOn = true;
+        updatePumpStatus();
+    }
+
+    function manualOff() {
+        pumpOn = false;
+        updatePumpStatus();
+    }
+
+    setInterval(updateSystem, 3000);
+</script>
+
+</body>
+</html>
